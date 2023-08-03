@@ -1,6 +1,5 @@
-﻿using UnityEngine;
+using UnityEngine;
 
-// Класс отвечающий за триггер врагов на игрока при достижении требуемой дистанции
 public class RangeActive : MonoBehaviour
 {
     [SerializeField] private Transform activePos;
@@ -12,7 +11,6 @@ public class RangeActive : MonoBehaviour
         ChangeEnableScripts(false);
     }
 
-    // Демонстрация дальности распространения "видимости" врагов
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -27,10 +25,10 @@ public class RangeActive : MonoBehaviour
             ChangeEnableScripts(false);
             return;
         }
+
         ChangeEnableScripts(true);
     }
 
-    // Изменения состояния скрипта Unit'a
     private void ChangeEnableScripts(bool isEnable)
     {
         Units[] scripts = gameObject.GetComponentsInChildren<Units>();
