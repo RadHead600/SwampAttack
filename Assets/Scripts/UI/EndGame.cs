@@ -1,4 +1,4 @@
-﻿using TMPro;
+using TMPro;
 using UnityEngine;
 
 public class EndGame : MonoBehaviour
@@ -18,9 +18,9 @@ public class EndGame : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Units unit = collision.GetComponent<Character>();
+        
         if (unit == null)
             return;
-        // При достижении триггера конца уровня, открывается окно конца уровня и демонстрируется текст с количеством убийств и монет.
         Time.timeScale = 0;
         menuEndGame.SetActive(true);
 
@@ -28,7 +28,6 @@ public class EndGame : MonoBehaviour
         textMoney.text = (SaveParameters.numberOfCoinsRaised * dropParameters.MoneyForCoin).ToString();
     }
 
-    // Открывает окно при проигрыше
     public void LossCanvas()
     {
         Time.timeScale = 0;
