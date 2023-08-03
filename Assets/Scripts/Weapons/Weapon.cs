@@ -58,6 +58,7 @@ public class Weapon : MonoBehaviour
     public void TakeAwayBullet(int quantity)
     {
         _amountBulletsInMagazine -= quantity;
+        
         if (_amountBulletsInMagazine <= 0)
         {
             if (Reloading != null)
