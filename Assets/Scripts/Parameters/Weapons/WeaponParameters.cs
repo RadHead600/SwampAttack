@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[Serializable] // ƒанный класс отвечает за ScriptableObject'ы. ƒл€ создани€ нового оружи€, требуетс€ создать класс-наследник и создать ScriptableObject в Unity. ƒалее настроить и прив€зать ScriptableObject к новому оружию.
+[Serializable] 
 public class WeaponParameters : ScriptableObject
 {
     [SerializeField] private string weaponName;
@@ -24,5 +24,4 @@ public class WeaponParameters : ScriptableObject
     public int AmountBulletsInMagazine => amountBulletsInMagazine;
     public float BulletDelay => bulletDelay;
     public Bullet Bullet => bullet;
-
 }
