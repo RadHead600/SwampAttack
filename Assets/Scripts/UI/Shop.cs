@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -26,11 +26,11 @@ public class Shop : MonoBehaviour
         Equip(SaveParameters.weaponEquip);
     }
 
-    // При старте игры установить все значения на стандартные
     private void SetStaticParameters()
     {
         int levelCount = SceneManager.sceneCountInBuildSettings;
         SaveParameters.numberKilled = new int[levelCount];
+
         if (SaveParameters.weaponEquip == 0)
         {
             SaveParameters.weaponsBought = new Weapon[weapons.Count()];
@@ -38,7 +38,6 @@ public class Shop : MonoBehaviour
         }
     }
 
-    // Добавляет панель с оружием в панель в окне
     private void CreateWeaponPanels()
     {
         for (int i = 0; i < weapons.Count; i++)
@@ -55,17 +54,18 @@ public class Shop : MonoBehaviour
         }
     }
 
-    // Функция экипирования оружия на игрока
     public void Equip(int weaponNum)
     {
         if (SaveParameters.weaponsBought[weaponNum] != null)
         {
             SaveParameters.weaponEquip = weaponNum;
+
             for (int i = 0; i < SaveParameters.weaponsBought.Length; i++) 
             {
                 if (SaveParameters.weaponsBought[i] != null)
                     weaponsPanel.GetComponentsInChildren<ShopWeaponButton>()[i].WeaponImage.color = Color.white;
             }
+
             weaponsPanel.GetComponentsInChildren<ShopWeaponButton>()[weaponNum].WeaponImage.color = Color.green;
             character.SetWeapon(SaveParameters.weaponsBought[weaponNum]);
             return;
@@ -73,14 +73,15 @@ public class Shop : MonoBehaviour
         BuyWeapon(weaponNum);
     }
 
-    // Функция разблокирования открытого оружия в магазине
     private void UnlockWeapons()
     {
         int i = 0;
+
         foreach (var weaponBought in SaveParameters.weaponsBought)
         {
             if (weaponBought == null)
                 continue;
+
             foreach (var weapon in weapons)
             {
                 if (string.Compare(weaponBought.Parameters.WeaponName, weapon.Parameters.WeaponName) == 0)
@@ -89,18 +90,17 @@ public class Shop : MonoBehaviour
                 }
                 i++;
             }
+
             i = 0;
         }
     }
 
-    // разблокирует заданное оружие
     private void UnlockWeapon(int buttonNum)
     {
         weaponsPanel.GetComponentsInChildren<ShopWeaponButton>()[buttonNum].WeaponImage.material = null;
         weaponsPanel.GetComponentsInChildren<ShopWeaponButton>()[buttonNum].CostText.alpha = 0;
     }
 
-    // Функция покупки оружия
     private void BuyWeapon(int weaponNum)
     {
         if (SaveParameters.money < weapons[weaponNum].Parameters.Cost)
@@ -108,7 +108,7 @@ public class Shop : MonoBehaviour
 
         weaponsPanel.GetComponentsInChildren<ShopWeaponButton>()[weaponNum].WeaponImage.material = null;
         weaponsPanel.GetComponentsInChildren<ShopWeaponButton>()[weaponNum].CostText.alpha = 0;
-        SaveParameters.weaponsBought[weaponNum] = weapons[weaponNum]; // добавления купленного оружия в заранее созданный пулл объектов
+        SaveParameters.weaponsBought[weaponNum] = weapons[weaponNum];
         SaveParameters.money -= weapons[weaponNum].Parameters.Cost;
         amountMoney.text = SaveParameters.money.ToString();
     }
