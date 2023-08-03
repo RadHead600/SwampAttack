@@ -7,6 +7,7 @@ public abstract class Bonus : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         unit = collision.GetComponentInChildren<Character>();
+        
         if (unit != null)
             GiveBonus();
     }
