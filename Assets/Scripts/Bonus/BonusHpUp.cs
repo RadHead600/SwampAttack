@@ -1,6 +1,5 @@
-﻿using UnityEngine;
+using UnityEngine;
 
-// Бонус добавления жизней игроку
 public class BonusHpUp : Bonus
 {
     [SerializeField] private int hpAdd;
