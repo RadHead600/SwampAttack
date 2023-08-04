@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class RangeActive : MonoBehaviour
 {
-    [SerializeField] private Transform activePos;
-    [SerializeField] private float activeRange;
-    [SerializeField] private LayerMask entityLayer;
+    [SerializeField] private Transform _activePos;
+    [SerializeField] private float _activeRange;
+    [SerializeField] private LayerMask _entityLayer;
 
     private void Start()
     {
@@ -14,12 +14,12 @@ public class RangeActive : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(activePos.position, activeRange);
+        Gizmos.DrawWireSphere(_activePos.position, _activeRange);
     }
 
     void Update()
     {
-        Collider2D[] monsters = Physics2D.OverlapCircleAll(activePos.position, activeRange, entityLayer);
+        Collider2D[] monsters = Physics2D.OverlapCircleAll(_activePos.position, _activeRange, _entityLayer);
         
         if (monsters.Length < 0.8)
         {
