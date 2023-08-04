@@ -6,17 +6,17 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Character : Units
 {
-    [SerializeField] private CharacterParameters parameters;
+    [SerializeField] private CharacterParameters _parameters;
 
-    [SerializeField] private GameObject HPText;
-    [SerializeField] private GameObject bulletsText;
+    [SerializeField] private GameObject _HPText;
+    [SerializeField] private GameObject _bulletsText;
     [SerializeField] private ParticleSystem bloodParticles;
 
-    [SerializeField] private Texture2D aimCursorTexture;
-    [SerializeField] private Texture2D reloadCursorTexture;
-    [SerializeField] private GameObject hand;
-    [SerializeField] private Transform body;
-    [SerializeField] private GameObject[] legs;
+    [SerializeField] private Texture2D _aimCursorTexture;
+    [SerializeField] private Texture2D _reloadCursorTexture;
+    [SerializeField] private GameObject _hand;
+    [SerializeField] private Transform _body;
+    [SerializeField] private GameObject[] _legs;
 
     private float _offset;
     private bool _isLockShootCoroutine;
@@ -34,15 +34,15 @@ public class Character : Units
 
     private void Start()
     {
-        HealthPoints = parameters.HealthPoints;
+        HealthPoints = _parameters.HealthPoints;
         SaveParameters.numberOfCoinsRaised = 0;
         SetAimCursor();
     }
 
     private void FixedUpdate()
     {
-        HPText.GetComponent<Text>().text = $"{HealthPoints}";
-        bulletsText.GetComponent<Text>().text = $"{_weaponAttack.AmountBulletsInMagazine + "/" + _weaponAttack.AmountBulletsInMagazineStandart}";
+        _HPText.GetComponent<Text>().text = $"{HealthPoints}";
+        _bulletsText.GetComponent<Text>().text = $"{_weaponAttack.AmountBulletsInMagazine + "/" + _weaponAttack.AmountBulletsInMagazineStandart}";
         RotateWeapons();
         RotateBody();
     }
@@ -100,22 +100,22 @@ public class Character : Units
             _rigidBody.velocity = new Vector2(0, _rigidBody.velocity.y);
             return;
         }
-        if (_rigidBody.velocity.x > -parameters.Speed && _rigidBody.velocity.x < parameters.Speed)
+        if (_rigidBody.velocity.x > -_parameters.Speed && _rigidBody.velocity.x < _parameters.Speed)
         {
             _rigidBody.AddForce(movement.normalized, ForceMode2D.Impulse);
             return;
         }
-        _rigidBody.velocity = new Vector2(parameters.Speed * horizontal, _rigidBody.velocity.y);
+        _rigidBody.velocity = new Vector2(_parameters.Speed * horizontal, _rigidBody.velocity.y);
     }
 
     public void Jump()
     {
-        _rigidBody.AddForce(transform.up.normalized * parameters.Jump, ForceMode2D.Impulse);
+        _rigidBody.AddForce(transform.up.normalized * _parameters.Jump, ForceMode2D.Impulse);
     }
 
     public bool IsGrounded()
     {
-        return Physics2D.OverlapCircleAll(transform.position, .3F, parameters.BlockStay).Length > 0.8;
+        return Physics2D.OverlapCircleAll(transform.position, .3F, _parameters.BlockStay).Length > 0.8;
     }
 
     private IEnumerator Shoot()
@@ -131,7 +131,7 @@ public class Character : Units
     public override int ReceiveDamage(int damage)
     {
         _rigidBody.velocity = Vector3.zero;
-        _rigidBody.AddForce(transform.up * (parameters.Jump / 3), ForceMode2D.Impulse);
+        _rigidBody.AddForce(transform.up * (_parameters.Jump / 3), ForceMode2D.Impulse);
         
         ParticleSystem particle = Instantiate(bloodParticles, transform.position, transform.rotation);
         particle.Play();
