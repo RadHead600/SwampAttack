@@ -6,7 +6,7 @@ public abstract class Enemy : Units
     [SerializeField] private EnemyParameters _parameters;
     [SerializeField] private DropParameters _dropParameters;
     [SerializeField] private Rigidbody2D _rigidBody;
-    [SerializeField] private ParticleSystem bloodParticles;
+    [SerializeField] private ParticleSystem _bloodParticles;
 
     public EnemyParameters Parameters => _parameters;
 
@@ -15,7 +15,7 @@ public abstract class Enemy : Units
         _rigidBody.velocity = Vector3.zero;
         _rigidBody.AddForce(transform.up * 2.0F, ForceMode2D.Impulse);
 
-        ParticleSystem particle = Instantiate(bloodParticles, transform.position, transform.rotation);
+        ParticleSystem particle = Instantiate(_bloodParticles, transform.position, transform.rotation);
         particle.Play();
         Destroy(particle.gameObject, particle.startLifetime);
 
