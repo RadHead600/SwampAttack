@@ -4,24 +4,24 @@ using UnityEngine;
 [Serializable] 
 public class WeaponParameters : ScriptableObject
 {
-    [SerializeField] private string weaponName;
-    [SerializeField] private int cost;
-    [SerializeField] private Sprite weaponSprite;
+    [SerializeField] private string _weaponName;
+    [SerializeField] private int _cost;
+    [SerializeField] private Sprite _weaponSprite;
 
-    [SerializeField] private float rechargeTime;
-    [SerializeField] private int bulletDamage;
-    [SerializeField] private float bulletSpeed;
-    [SerializeField] private int amountBulletsInMagazine;
-    [SerializeField] private float bulletDelay;
-    [SerializeField] private Bullet bullet;
+    [SerializeField] private float _rechargeTime;
+    [SerializeField] private int _bulletDamage;
+    [SerializeField] private float _bulletSpeed;
+    [SerializeField] private int _amountBulletsInMagazine;
+    [SerializeField] private float _bulletDelay;
+    [SerializeField] private Bullet _bullet;
 
-    public string WeaponName => weaponName;
-    public int Cost => cost;
-    public Sprite WeaponSprite => weaponSprite;
-    public float RechargeTime => rechargeTime;
-    public int BulletDamage => bulletDamage;
-    public float BulletSpeed => bulletSpeed;
-    public int AmountBulletsInMagazine => amountBulletsInMagazine;
-    public float BulletDelay => bulletDelay;
-    public Bullet Bullet => bullet;
+    public string WeaponName => _weaponName;
+    public int Cost => _cost;
+    public Sprite WeaponSprite => _weaponSprite;
+    public float RechargeTime => _rechargeTime;
+    public int BulletDamage => _bulletDamage;
+    public float BulletSpeed => _bulletSpeed;
+    public int AmountBulletsInMagazine => _amountBulletsInMagazine;
+    public float BulletDelay => _bulletDelay;
+    public Bullet Bullet => _bullet;
 }
