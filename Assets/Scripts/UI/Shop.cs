@@ -40,7 +40,7 @@ public class Shop : MonoBehaviour
 
     private void CreateWeaponPanels()
     {
-        for (int i = 0; i < weapons.Count; i++)
+        for (int i = 0; i < _weapons.Count; i++)
         {
             int saveI = i;
             ShopWeaponButton button = Instantiate(weaponButton);
@@ -48,9 +48,9 @@ public class Shop : MonoBehaviour
             button.transform.position = new Vector3(button.transform.position.x, button.transform.position.y, 0);
             button.transform.localScale = Vector3.one;
             button.Button.onClick.AddListener(() => Equip(saveI));
-            button.WeaponImage.sprite = weapons[i].Parameters.WeaponSprite;
-            button.CostText.text = weapons[i].Parameters.Cost.ToString();
-            button.NameText.text = weapons[i].Parameters.WeaponName.ToString();
+            button.WeaponImage.sprite = _weapons[i].Parameters.WeaponSprite;
+            button.CostText.text = _weapons[i].Parameters.Cost.ToString();
+            button.NameText.text = _weapons[i].Parameters.WeaponName.ToString();
         }
     }
 
@@ -82,12 +82,13 @@ public class Shop : MonoBehaviour
             if (weaponBought == null)
                 continue;
 
-            foreach (var weapon in weapons)
+            foreach (var weapon in _weapons)
             {
                 if (string.Compare(weaponBought.Parameters.WeaponName, weapon.Parameters.WeaponName) == 0)
                 {
                     UnlockWeapon(i);
                 }
+                
                 i++;
             }
 
@@ -103,13 +104,13 @@ public class Shop : MonoBehaviour
 
     private void BuyWeapon(int weaponNum)
     {
-        if (SaveParameters.money < weapons[weaponNum].Parameters.Cost)
+        if (SaveParameters.money < _weapons[weaponNum].Parameters.Cost)
             return;
 
         weaponsPanel.GetComponentsInChildren<ShopWeaponButton>()[weaponNum].WeaponImage.material = null;
         weaponsPanel.GetComponentsInChildren<ShopWeaponButton>()[weaponNum].CostText.alpha = 0;
-        SaveParameters.weaponsBought[weaponNum] = weapons[weaponNum];
-        SaveParameters.money -= weapons[weaponNum].Parameters.Cost;
+        SaveParameters.weaponsBought[weaponNum] = _weapons[weaponNum];
+        SaveParameters.money -= _weapons[weaponNum].Parameters.Cost;
         _amountMoney.text = SaveParameters.money.ToString();
     }
 }
