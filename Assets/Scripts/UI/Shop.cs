@@ -31,7 +31,9 @@ public class Shop : MonoBehaviour
         int levelCount = SceneManager.sceneCountInBuildSettings;
         SaveParameters.numberKilled = new int[levelCount];
 
-        if (SaveParameters.weaponEquip == 0)
+        int zero = 0;
+
+        if (SaveParameters.weaponEquip == zero)
         {
             SaveParameters.weaponsBought = new Weapon[_weapons.Count()];
             SaveParameters.weaponsBought[0] = _weapons[0];
