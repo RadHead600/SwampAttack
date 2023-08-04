@@ -78,11 +78,14 @@ public class Character : Units
         if (pos.x > 0)
         {
             _offset = -180;
+            
             if (transform.localScale.x < 0)
                 _offset = 0;
             return;
         }
+        
         _offset = 0;
+        
         if (transform.localScale.x < 0)
             _offset = -180;
     }
@@ -95,6 +98,7 @@ public class Character : Units
         _legs[1].GetComponentInChildren<SpriteRenderer>().flipX = (horizontal > 0 && _offset > 0);
 
         Vector2 movement = new Vector3(horizontal * Time.deltaTime, 0, 0);
+        
         if (movement.x == 0)
         {
             _rigidBody.velocity = new Vector2(0, _rigidBody.velocity.y);
@@ -121,6 +125,7 @@ public class Character : Units
     private IEnumerator Shoot()
     {
         _isLockShootCoroutine = true;
+        
         yield return new WaitForSeconds(_weaponAttack.Parameters.BulletDelay);
 
         Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
