@@ -10,7 +10,7 @@ public class Character : Units
 
     [SerializeField] private GameObject _HPText;
     [SerializeField] private GameObject _bulletsText;
-    [SerializeField] private ParticleSystem bloodParticles;
+    [SerializeField] private ParticleSystem _bloodParticles;
 
     [SerializeField] private Texture2D _aimCursorTexture;
     [SerializeField] private Texture2D _reloadCursorTexture;
@@ -62,14 +62,14 @@ public class Character : Units
     {
         Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position; 
         float rotate = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-        hand.transform.rotation = Quaternion.Euler(0f, 0f, rotate + _offset);
+        _hand.transform.rotation = Quaternion.Euler(0f, 0f, rotate + _offset);
     }
 
     public void RotateBody()
     {
         Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        Vector3 pos = body.transform.localScale;
-        body.transform.localScale = new Vector3(
+        Vector3 pos = _body.transform.localScale;
+        _body.transform.localScale = new Vector3(
             (difference.x < 0 ? Math.Abs(pos.x) * -1 : Math.Abs(pos.x)) * (transform.localScale.x > 0 ? -1 : 1),
             pos.y,
             pos.z
@@ -91,8 +91,8 @@ public class Character : Units
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         gameObject.GetComponentInChildren<Animation>().IsRun = horizontal != 0;
-        legs[0].GetComponentInChildren<SpriteRenderer>().flipX = (horizontal > 0 && _offset > 0);
-        legs[1].GetComponentInChildren<SpriteRenderer>().flipX = (horizontal > 0 && _offset > 0);
+        _legs[0].GetComponentInChildren<SpriteRenderer>().flipX = (horizontal > 0 && _offset > 0);
+        _legs[1].GetComponentInChildren<SpriteRenderer>().flipX = (horizontal > 0 && _offset > 0);
 
         Vector2 movement = new Vector3(horizontal * Time.deltaTime, 0, 0);
         if (movement.x == 0)
@@ -133,7 +133,7 @@ public class Character : Units
         _rigidBody.velocity = Vector3.zero;
         _rigidBody.AddForce(transform.up * (_parameters.Jump / 3), ForceMode2D.Impulse);
         
-        ParticleSystem particle = Instantiate(bloodParticles, transform.position, transform.rotation);
+        ParticleSystem particle = Instantiate(_bloodParticles, transform.position, transform.rotation);
         particle.Play();
         Destroy(particle.gameObject, particle.startLifetime);
 
@@ -149,10 +149,10 @@ public class Character : Units
     {
         if (SaveParameters.weaponsBought != null)
         {
-            foreach (Transform weaponT in hand.GetComponentInChildren<Transform>())
+            foreach (Transform weaponT in _hand.GetComponentInChildren<Transform>())
                 Destroy(weaponT.gameObject);
             _weaponAttack = Instantiate(weapon);
-            _weaponAttack.transform.parent = hand.transform;
+            _weaponAttack.transform.parent = _hand.transform;
             _weaponAttack.transform.localScale = weapon.transform.localScale;
             _weaponAttack.transform.localPosition = Vector3.zero;
             _weaponAttack.transform.localRotation = Quaternion.identity;
@@ -161,12 +161,12 @@ public class Character : Units
 
     private void SetAimCursor()
     {
-        Cursor.SetCursor(aimCursorTexture, new Vector2(100, 100), CursorMode.Auto);
+        Cursor.SetCursor(_aimCursorTexture, new Vector2(100, 100), CursorMode.Auto);
     }
 
     private void SetReloadCursor()
     {
-        Cursor.SetCursor(reloadCursorTexture, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(_reloadCursorTexture, Vector2.zero, CursorMode.Auto);
     }
 
     private void OnDestroy()
