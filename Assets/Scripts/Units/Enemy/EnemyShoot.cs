@@ -17,7 +17,7 @@ public class EnemyShoot : Enemy
             player = FindObjectOfType<Character>().gameObject;
         HealthPoints = Parameters.HealthPoints;
         _weapon = Instantiate(Parameters.Weapon);
-        _weapon.transform.SetParent(hand);
+        _weapon.transform.SetParent(_hand);
         _weapon.transform.localPosition = Vector3.zero;
         StartCoroutine(Attack());
     }
