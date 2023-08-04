@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private WeaponParameters parameters;
-    [SerializeField] private GameObject posAttack;
+    [SerializeField] private WeaponParameters _parameters;
+    [SerializeField] private GameObject _posAttack;
 
     [NonSerialized] public bool isEnemy = false;
     
@@ -16,14 +16,14 @@ public class Weapon : MonoBehaviour
     public delegate void ReloadedDelegate();
     public event ReloadedDelegate Reloaded;
 
-    public WeaponParameters Parameters => parameters;
+    public WeaponParameters Parameters => _parameters;
     public int AmountBulletsInMagazine => _amountBulletsInMagazine;
-    public int AmountBulletsInMagazineStandart => parameters.AmountBulletsInMagazine;
+    public int AmountBulletsInMagazineStandart => _parameters.AmountBulletsInMagazine;
 
     private void Start()
     {
-        _timerRecharge = parameters.RechargeTime;
-        _amountBulletsInMagazine = parameters.AmountBulletsInMagazine;
+        _timerRecharge = _parameters.RechargeTime;
+        _amountBulletsInMagazine = _parameters.AmountBulletsInMagazine;
     }
 
     private void Update()
@@ -34,22 +34,22 @@ public class Weapon : MonoBehaviour
         {
             if (Reloaded != null)
                 Reloaded.Invoke();
-            _amountBulletsInMagazine = parameters.AmountBulletsInMagazine;
+            _amountBulletsInMagazine = _parameters.AmountBulletsInMagazine;
         }
     }
 
     public void Attack(Vector3 difference)
     {
-        if (_timerRecharge > 0 || posAttack == null)
+        if (_timerRecharge > 0 || _posAttack == null)
             return;
 
-        Bullet newBullet = Instantiate(parameters.Bullet, posAttack.transform.position, posAttack.transform.rotation);
+        Bullet newBullet = Instantiate(_parameters.Bullet, _posAttack.transform.position, _posAttack.transform.rotation);
 
         if (isEnemy)
             newBullet.gameObject.layer = LayerMask.NameToLayer("BulletEnemy");
 
-        newBullet.Speed = parameters.BulletSpeed;
-        newBullet.Damage = parameters.BulletDamage;
+        newBullet.Speed = _parameters.BulletSpeed;
+        newBullet.Damage = _parameters.BulletDamage;
         newBullet.Direction = newBullet.transform.right * (difference.x < 0 ? -1 : 1);
 
         TakeAwayBullet(1);
@@ -63,7 +63,7 @@ public class Weapon : MonoBehaviour
         {
             if (Reloading != null)
                 Reloading.Invoke();
-            _timerRecharge = parameters.RechargeTime;
+            _timerRecharge = _parameters.RechargeTime;
             return;
         }
     }
