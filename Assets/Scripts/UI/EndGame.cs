@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class EndGame : MonoBehaviour
 {
-    [SerializeField] private DropParameters dropParameters;
-    [SerializeField] private GameObject menuEndGame;
-    [SerializeField] private GameObject lossMenu;
-    [SerializeField] private TextMeshProUGUI textMurders;
-    [SerializeField] private TextMeshProUGUI textMoney;
+    [SerializeField] private DropParameters _dropParameters;
+    [SerializeField] private GameObject _menuEndGame;
+    [SerializeField] private GameObject _lossMenu;
+    [SerializeField] private TextMeshProUGUI _textMurders;
+    [SerializeField] private TextMeshProUGUI _textMoney;
 
     void Start()
     {
-        menuEndGame.SetActive(false);
-        lossMenu.SetActive(false);
+        _menuEndGame.SetActive(false);
+        _lossMenu.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -21,16 +21,17 @@ public class EndGame : MonoBehaviour
         
         if (unit == null)
             return;
+            
         Time.timeScale = 0;
-        menuEndGame.SetActive(true);
+        _menuEndGame.SetActive(true);
 
-        textMurders.text = "Убийств: " + SaveParameters.numberKilled[SaveParameters.levelActive].ToString();
-        textMoney.text = (SaveParameters.numberOfCoinsRaised * dropParameters.MoneyForCoin).ToString();
+        _textMurders.text = "Убийств: " + SaveParameters.numberKilled[SaveParameters.levelActive].ToString();
+        _textMoney.text = (SaveParameters.numberOfCoinsRaised * _dropParameters.MoneyForCoin).ToString();
     }
 
     public void LossCanvas()
     {
         Time.timeScale = 0;
-        lossMenu.SetActive(true);
+        _lossMenu.SetActive(true);
     }
 }
