@@ -28,9 +28,13 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.2f, blocks);
+        float position = 0.2f;
+
+        float length 0.8f;
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, position , blocks);
         
-        if (colliders.Length > 0.8F)
+        if (colliders.Length > length)
         {
             Destroy(gameObject);
         }
