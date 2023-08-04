@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyShoot : Enemy
 {
-    [SerializeField] private Transform hand;
-    [SerializeField] private Transform body;
+    [SerializeField] private Transform _hand;
+    [SerializeField] private Transform _body;
 
     private int _offset;
     private Vector3 _difference;
@@ -32,13 +32,13 @@ public class EnemyShoot : Enemy
     {
         _difference = player.transform.position - transform.position;
         float rotate = Mathf.Atan2(_difference.y, _difference.x) * Mathf.Rad2Deg;
-        hand.transform.rotation = Quaternion.Euler(0f, 0f, rotate + _offset);
+        _hand.transform.rotation = Quaternion.Euler(0f, 0f, rotate + _offset);
     }
 
     private void RotateBody()
     {
-        Vector3 pos = body.transform.localScale;
-        body.transform.localScale = new Vector3(
+        Vector3 pos = _body.transform.localScale;
+        _body.transform.localScale = new Vector3(
             (_difference.x < 0 ? Math.Abs(pos.x) * -1 : Math.Abs(pos.x)) * (transform.localScale.x > 0 ? -1 : 1),
             pos.y,
             pos.z
