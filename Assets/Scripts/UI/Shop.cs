@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class Shop : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI amountMoney;
-    [SerializeField] private List<Weapon> weapons;
-    [SerializeField] private ShopWeaponButton weaponButton;
-    [SerializeField] private GameObject weaponsPanel;
-    [SerializeField] private Character character;
+    [SerializeField] private TextMeshProUGUI _amountMoney;
+    [SerializeField] private List<Weapon> _weapons;
+    [SerializeField] private ShopWeaponButton _weaponButton;
+    [SerializeField] private GameObject _weaponsPanel;
+    [SerializeField] private Character _character;
 
     private void Awake()
     {
@@ -33,8 +33,8 @@ public class Shop : MonoBehaviour
 
         if (SaveParameters.weaponEquip == 0)
         {
-            SaveParameters.weaponsBought = new Weapon[weapons.Count()];
-            SaveParameters.weaponsBought[0] = weapons[0];
+            SaveParameters.weaponsBought = new Weapon[_weapons.Count()];
+            SaveParameters.weaponsBought[0] = _weapons[0];
         }
     }
 
@@ -110,6 +110,6 @@ public class Shop : MonoBehaviour
         weaponsPanel.GetComponentsInChildren<ShopWeaponButton>()[weaponNum].CostText.alpha = 0;
         SaveParameters.weaponsBought[weaponNum] = weapons[weaponNum];
         SaveParameters.money -= weapons[weaponNum].Parameters.Cost;
-        amountMoney.text = SaveParameters.money.ToString();
+        _amountMoney.text = SaveParameters.money.ToString();
     }
 }
