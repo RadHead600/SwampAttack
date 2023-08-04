@@ -20,6 +20,7 @@ public class RangeActive : MonoBehaviour
     void Update()
     {
         Collider2D[] monsters = Physics2D.OverlapCircleAll(activePos.position, activeRange, entityLayer);
+        
         if (monsters.Length < 0.8)
         {
             ChangeEnableScripts(false);
