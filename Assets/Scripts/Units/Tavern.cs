@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Tavern : MonoBehaviour
 {
-    [SerializeField] private GameObject shopCanvas;
+    [SerializeField] private GameObject _shopCanvas;
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -10,7 +10,7 @@ public class Tavern : MonoBehaviour
         {
             if (collision.GetComponentInChildren<Character>() != null)
             {
-                shopCanvas.SetActive(true);
+                _shopCanvas.SetActive(true);
             }
         }
     }
