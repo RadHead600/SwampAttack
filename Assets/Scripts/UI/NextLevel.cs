@@ -12,6 +12,7 @@ public class NextLevel : MonoBehaviour
             SceneManager.LoadScene(SaveParameters.levelActive);
             return;
         }
+        
         SaveParameters.levelActive = 0;
         SceneManager.LoadScene(0);
     }
