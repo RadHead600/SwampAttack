@@ -15,6 +15,7 @@ public class EnemyShoot : Enemy
     {
         if (player == null)
             player = FindObjectOfType<Character>().gameObject;
+            
         HealthPoints = Parameters.HealthPoints;
         _weapon = Instantiate(Parameters.Weapon);
         _weapon.transform.SetParent(_hand);
