@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private LayerMask blocks;
+    [SerializeField] private LayerMask _blocks;
 
     public float Speed { get; set; }
     public int Damage { get; set; }
@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
 
         float length 0.8f;
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, position , blocks);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, position , _blocks);
         
         if (colliders.Length > length)
         {
