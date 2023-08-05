@@ -19,9 +19,9 @@ public class BonusBox : Units
 
     public void DropBonus()
     {
-        GameObject dropBonus = Instantiate(_bonuses[Random.Range(0, _bonuses.Length)].gameObject,
-        transform.position, transform.rotation) as GameObject;
+        GameObject dropBonus = Instantiate(_bonuses[Random.Range(0, _bonuses.Length)],
+        transform.position, transform.rotation);
         dropBonus.SetActive(true);
-        Destroy(gameObject);  
+        Destroy(gameObject);
     }
 }
