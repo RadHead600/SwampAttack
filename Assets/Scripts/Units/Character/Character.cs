@@ -119,7 +119,11 @@ public class Character : Units
 
     public bool IsGrounded()
     {
-        return Physics2D.OverlapCircleAll(transform.position, .3F, _parameters.BlockStay).Length > 0.8;
+        float GroundCheckRadius = 0.3f;
+
+        float length = 0.8;
+    
+        return Physics2D.OverlapCircleAll(transform.position, GroundCheckRadius, _parameters.BlockStay).Length > length;
     }
 
     private IEnumerator Shoot()
@@ -135,8 +139,10 @@ public class Character : Units
 
     public override int ReceiveDamage(int damage)
     {
+        float JumpRecoilForceFactor = 0.33f;
+    
         _rigidBody.velocity = Vector3.zero;
-        _rigidBody.AddForce(transform.up * (_parameters.Jump / 3), ForceMode2D.Impulse);
+        _rigidBody.AddForce(transform.up * (_parameters.Jump / JumpRecoilForceFactor), ForceMode2D.Impulse);
         
         ParticleSystem particle = Instantiate(_bloodParticles, transform.position, transform.rotation);
         particle.Play();
